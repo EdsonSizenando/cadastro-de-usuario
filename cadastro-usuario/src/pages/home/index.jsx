@@ -1,27 +1,21 @@
+import { useEffect } from 'react'
 import './style.css'
 import Trash from '../../assets/trash.png'
+import api from '../../services/api'
 
 function Home() {
 
-  const users = [{
-    id: '34ldfldl',
-    name: 'Edson',
-    age: 30,
-    email: 'edsonsize@gmail.com'
-  },
-  {
-    id: '34ldf56l',
-    name: 'Nay',
-    age: 35,
-    email: 'nayara@gmail.com',
-  },
-  {
-    id: '9384hkfhf',
-    name: 'Paulo',
-    age: 45,
-    email: 'paulo@email.com'
+  let users = []
 
-  }]
+
+  async function getUsers(){
+    users = await api.get('/usuarios')
+
+  }
+
+  
+
+  
 
   return (
 
@@ -58,3 +52,8 @@ function Home() {
 }
 
 export default Home
+   
+
+//instalar o npm install axios para conectar com o backend onde faz requisições
+
+// comando npm run dev para rodar o vite - primeiros comandos
