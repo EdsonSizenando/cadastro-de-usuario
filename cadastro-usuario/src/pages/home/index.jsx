@@ -1,17 +1,56 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useRef } from 'react' //react hooks
 import './style.css'
 import Trash from '../../assets/trash.png'
 import api from '../../services/api'
 
-function Home() {
 
-  let users = []
+function Home() {
+const [users, setUsers] = useState([])
+
+const inputName = useRef()
+const InputAge = useRef()
+const InputEmail = useRef()
+  
 
 
   async function getUsers(){
-    users = await api.get('/usuarios')
+    const usersFromApi = await api.get('/usuarios')
+    
+    
+    setUsers(usersFromApi.data)
+    
 
   }
+
+   async function createUsers(){
+    
+    await api.post('/usuarios', {
+      name: inputName.current.value,
+      age: InputAge.current.value,
+      email: InputEmail.current.value
+
+    })
+
+    getUsers() //adciona um novo usuario na tela automaticamente
+    
+    
+   
+  }
+
+  async function deleteUsers(id){
+    await api.delete(`/usuarios/${id}`)
+    
+    
+    
+    getUsers()
+
+  }
+
+  useEffect(() => {
+    getUsers()
+  
+  }, [])
+    
 
   
 
@@ -23,10 +62,10 @@ function Home() {
       <form>
 
         <h1>Cadastro de Usuário</h1>
-        <input type="text" name="nome" placeholder='nome' />
-        <input type="number" name="idade" placeholder='idade' />
-        <input type="email" name="email" placeholder='e-mail' />
-        <button type='button'>Cadastrar</button>
+        <input type="text" name="nome" placeholder='nome' ref={inputName} />
+        <input type="number" name="idade" placeholder='idade' ref={InputAge} />
+        <input type="email" name="email" placeholder='e-mail' ref={InputEmail}/>
+        <button type='button' onClick={createUsers}>Cadastrar</button>
 
       </form>
 
@@ -37,7 +76,7 @@ function Home() {
             <p>Idade: <span>{user.age}</span></p>
             <p>Email: <span>{user.email}</span></p>
           </div>
-          <button>
+          <button onClick={() => deleteUsers(user.id)}> 
             <img src={Trash} />
           </button>
 
