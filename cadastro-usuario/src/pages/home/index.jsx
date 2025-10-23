@@ -95,4 +95,4 @@ export default Home
 
 //instalar o npm install axios para conectar com o backend onde faz requisições
 
-// comando npm run dev para rodar o vite - primeiros comandos
+// comando npm run dev para rodar o vite - primeiros comandos 
