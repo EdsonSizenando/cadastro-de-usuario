@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react' //react hooks
 import './style.css'
 import Trash from '../../assets/trash.png'
 import api from '../../services/api'
-
+36
 
 function Home() {
 const [users, setUsers] = useState([])
